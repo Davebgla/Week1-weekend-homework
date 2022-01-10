@@ -35,6 +35,7 @@ def remove_pet_by_name(cc_pet_shop, pets_name):
         if pet["name"] == pets_name:
             cc_pet_shop["pets"].remove(pet)
 
+
 def add_pet_to_stock(cc_pet_shop, new_pet):
     cc_pet_shop["pets"].append(new_pet)
     
@@ -53,9 +54,19 @@ def add_pet_to_customer(customers, pet):
 def customer_can_afford_pet(customer, new_pet):
 #     # for total in customer["cash"]:
     if customer["cash"] >= new_pet["price"]:
-            return True
+        return True
     else:
-        False
+        return False
+
+def sell_pet_to_customer(cc_pet_shop, pet, customer):
+    if pet == None or customer_can_afford_pet(customer, pet) == False:
+        return
+    customer["pets"].append(pet)
+    increase_pets_sold(cc_pet_shop, 1)
+    remove_customer_cash(customer, pet["price"])
+    add_or_remove_cash(cc_pet_shop, pet["price"])
+    remove_pet_by_name(cc_pet_shop, pet["name"])
+
 
 
             
